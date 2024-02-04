@@ -40,6 +40,7 @@ public class BServices
         _context.Book.Update(book);
         _context.SaveChanges();
     }
+
     public void AddGenreToBook(AddGenreToBook dto)
     {
         var book = _context.Book.FirstOrDefault(_ => _.Id == dto.BookId);
@@ -58,5 +59,46 @@ public class BServices
         book.GenreId = Genre.Id;
         _context.Book.Update(book);
         _context.SaveChanges();
+    }
+
+    public void DeleteBook(int id)
+    {
+        var book = _context.Book.FirstOrDefault(_ => _.Id == id);
+        if (book is null)
+        {
+            throw new Exception("book not found");
+        }
+
+        _context.Book.Remove(book);
+    }
+
+    public void UpdateBook(int id, UpdateBookDto dto)
+    {
+        var book = _context.Book.FirstOrDefault(_ => _.Id == id);
+        if (book is null)
+        {
+            throw new Exception("Book Not Found ");
+        }
+
+        book.Id = book.Id;
+        book.Name = dto.Name;
+       
+        book.Count = dto.Count;
+        book.Publication = dto.YearPublication;
+
+        _context.SaveChanges();
+    }
+
+
+    public List<GetBooksDto> GetBooks(GetBooksDto dto)
+    {
+        var book = _context.Book.Select(_ => new GetBooksDto()
+        {
+            Name = _.Name,
+            Count = _.Count,
+            YearPublication = _.Publication
+
+        }).ToList();
+        return book;
     }
 }
