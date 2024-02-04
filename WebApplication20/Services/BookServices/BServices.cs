@@ -90,7 +90,7 @@ public class BServices
     }
 
 
-    public List<GetBooksDto> GetBooks(GetBooksDto dto)
+    public List<GetBooksDto> GetAllBooks(GetBooksDto dto)
     {
         var book = _context.Book.Select(_ => new GetBooksDto()
         {
@@ -101,4 +101,27 @@ public class BServices
         }).ToList();
         return book;
     }
+
+    public List<GetBooksDto> GetSearchBook(
+        GetBookFilterDto getBookFilterDto)
+    {
+        var books = _context.Book.Select(_ => new GetBooksDto()
+        {
+            Name = _.Name,
+            YearPublication = _.Publication,
+            Count = _.Count
+
+        }).ToList();
+
+
+       var findBook= books.Where(_ => _.Name.Contains(getBookFilterDto.Name)).ToList();
+       if (findBook is null)
+       {
+           throw new Exception("not found");
+       }
+
+       return findBook;
+
+    }
+    
 }

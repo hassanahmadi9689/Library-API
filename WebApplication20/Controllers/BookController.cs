@@ -44,6 +44,14 @@ public class BookController : ControllerBase
     [HttpGet("get-all-books")]
     public List<GetBooksDto> GetBooks([FromQuery]GetBooksDto dto)
     {
-        return Services.GetBooks(dto);
+        return Services.GetAllBooks(dto);
+    }
+
+    [HttpGet("get-by-search")]
+    public List<GetBooksDto> GetBook([FromQuery] GetBookFilterDto getBookFilterDto)
+    {
+        return Services.GetSearchBook(getBookFilterDto);
     }
 }
+
+
