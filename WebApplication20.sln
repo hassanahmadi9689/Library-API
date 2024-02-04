@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication20", "WebApplication20\WebApplication20.csproj", "{4421F639-B1AE-4A98-BFA2-83BBABEF59B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{94394728-E7B0-4C9D-82F9-70F9FF635A65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4421F639-B1AE-4A98-BFA2-83BBABEF59B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4421F639-B1AE-4A98-BFA2-83BBABEF59B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4421F639-B1AE-4A98-BFA2-83BBABEF59B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4421F639-B1AE-4A98-BFA2-83BBABEF59B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94394728-E7B0-4C9D-82F9-70F9FF635A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94394728-E7B0-4C9D-82F9-70F9FF635A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94394728-E7B0-4C9D-82F9-70F9FF635A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94394728-E7B0-4C9D-82F9-70F9FF635A65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
