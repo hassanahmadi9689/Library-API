@@ -38,5 +38,6 @@ public class _202402021315_IntionalTables : Migration
 
     public override void Down()
     {
+        
     }
 }

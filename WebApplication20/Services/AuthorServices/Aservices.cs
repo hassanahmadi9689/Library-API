@@ -5,7 +5,7 @@ namespace WebApplication20.Services.AuthorServices;
 
 public class Aservices
 {
-    private EFDataContext _context = new EFDataContext();
+    private EfDataContext _context = new EfDataContext();
 
     public void AddAuthor(AddAuthorDto dto)
     {

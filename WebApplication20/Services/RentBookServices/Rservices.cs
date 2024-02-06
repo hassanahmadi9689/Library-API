@@ -5,7 +5,7 @@ namespace WebApplication20.Services.RentBookServices;
 
 public class Rservices
 {
-    private EFDataContext _dataContext = new EFDataContext();
+    private EfDataContext _dataContext = new EfDataContext();
 
     public void AddRentBook(AddRentDto dto)
     {

@@ -5,7 +5,7 @@ namespace WebApplication20.Services.BookServices;
 
 public class BServices
 {
-    private EFDataContext _context = new EFDataContext();
+    private EfDataContext _context = new EfDataContext();
 
     public void AddBook(AddBookDto dto)
     {

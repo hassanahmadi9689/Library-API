@@ -4,7 +4,7 @@ namespace WebApplication20.Services.GenreServices;
 
 public class GServices
 {
-     private EFDataContext _dataContext = new EFDataContext();
+     private EfDataContext _dataContext = new EfDataContext();
 
      public void AddGenre(AddGenreDto dto)
      {

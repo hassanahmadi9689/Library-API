@@ -11,7 +11,9 @@ public class Book
     public string? Publication { get; set; }
     public int Count { get; set; }
     public int? AuthorId { get; set; }
-    public Author Author { get; set; }
+    public Author? Author { get; set; }
     public int? GenreId { get; set; }
+    public Genre? Genre { get; set; }
+    public HashSet<RentBook> RentBook { get; set; }
     
 }

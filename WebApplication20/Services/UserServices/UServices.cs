@@ -5,7 +5,7 @@ namespace WebApplication20.Services.UserServices;
 
 public class UServices
 {
-    private EFDataContext _dataContext = new EFDataContext();
+    private EfDataContext _dataContext = new EfDataContext();
 
     public void AddUser(AddUserDto dto)
     {
