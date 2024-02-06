@@ -23,7 +23,7 @@ public class BookController : ControllerBase
     }
 
     [HttpPatch("Set-Book-Genre")]
-    public void SetGenreBook(AddGenreToBook dto)
+    public void SetGenreBook(AddGenreToBookDto dto)
     {
         Services.AddGenreToBook(dto);
     }

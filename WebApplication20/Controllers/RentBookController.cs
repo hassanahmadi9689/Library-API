@@ -7,20 +7,20 @@ namespace WebApplication20.Controllers;
 [Route("[controller]")]
 public class RentBookController : ControllerBase
 {
-    private Rservices _rservices = new Rservices();
+    private RServices _rServices = new RServices();
 
     [HttpPost("Rent_Book")]
     public void Add(AddRentDto dto)
     {
-        _rservices.AddRentBook(dto);
+        _rServices.AddRentBook(dto);
         
     }
 
-    [HttpPatch]
+    [HttpPatch("Return-Book")]
     public int ReturnBook([FromQuery]ReturnBookDto dto)
     {
         
-        _rservices.ReturnBook(dto);
+        _rServices.ReturnBook(dto);
         return dto.BookId;
     }
 }

@@ -14,4 +14,9 @@ public class AuthorController : ControllerBase
     {
         _aservices.AddAuthor(dto);
     }
+    [HttpDelete("Delete-Author/{Id}")]
+    public void DeleteUser([FromRoute] int Id)
+    {
+        _aservices.DeleteAuthor(Id);
+    }
 }

@@ -5,14 +5,28 @@ namespace WebApplication20.Services.BookServices;
 
 public class BServices
 {
-    private EfDataContext _context = new EfDataContext();
+    private readonly EfDataContext _context = new EfDataContext();
 
     public void AddBook(AddBookDto dto)
     {
+        var authorId =
+            _context.Author!.FirstOrDefault(_ => _.Id == dto.AuthorId);
+        if (authorId is null)
+        {
+            throw new Exception("author not found...");
+        }
+
+        var genreId =
+            _context.Genre!.FirstOrDefault(_ => _.Id == dto.GenreId);
+        if (genreId is null)
+        {
+            throw new Exception("genre not found...");
+        }
+
         var book = new Book
         {
-            GenreId = null,
-            AuthorId = null,
+            GenreId = dto.GenreId,
+            AuthorId = dto.AuthorId,
             Name = dto.Name,
             Count = dto.Count,
             Publication = dto.YearPublication
@@ -23,58 +37,59 @@ public class BServices
 
     public void AddAuthorToBook(AddAuthorToBookDto dto)
     {
-        var book = _context.Book.FirstOrDefault(_ => _.Id == dto.BookId);
+        var book = _context.Book!.FirstOrDefault(_ => _.Id == dto.BookId);
         if (book is null)
         {
             throw new Exception("Book Not Found");
         }
 
         var Author =
-            _context.Author.FirstOrDefault(_ => _.Id == dto.AuthorId);
+            _context.Author!.FirstOrDefault(_ => _.Id == dto.AuthorId);
         if (Author is null)
         {
             throw new Exception("Author not found ");
         }
 
         book.AuthorId = Author.Id;
-        _context.Book.Update(book);
+        _context.Book!.Update(book);
         _context.SaveChanges();
     }
 
-    public void AddGenreToBook(AddGenreToBook dto)
+    public void AddGenreToBook(AddGenreToBookDto dto)
     {
-        var book = _context.Book.FirstOrDefault(_ => _.Id == dto.BookId);
+        var book = _context.Book!.FirstOrDefault(_ => _.Id == dto.BookId);
         if (book is null)
         {
             throw new Exception("Book Not Found");
         }
 
         var Genre =
-            _context.Author.FirstOrDefault(_ => _.Id == dto.GenreId);
+            _context.Genre!.FirstOrDefault(_ => _.Id == dto.GenreId);
         if (Genre is null)
         {
-            throw new Exception("Author not found ");
+            throw new Exception("Genre not found ");
         }
 
         book.GenreId = Genre.Id;
-        _context.Book.Update(book);
+        _context.Book!.Update(book);
         _context.SaveChanges();
     }
 
     public void DeleteBook(int id)
     {
-        var book = _context.Book.FirstOrDefault(_ => _.Id == id);
+        var book = _context.Book!.FirstOrDefault(_ => _.Id == id);
         if (book is null)
         {
             throw new Exception("book not found");
         }
 
-        _context.Book.Remove(book);
+        _context.Book!.Remove(book);
+        _context.SaveChanges();
     }
 
     public void UpdateBook(int id, UpdateBookDto dto)
     {
-        var book = _context.Book.FirstOrDefault(_ => _.Id == id);
+        var book = _context.Book!.FirstOrDefault(_ => _.Id == id);
         if (book is null)
         {
             throw new Exception("Book Not Found ");
@@ -82,7 +97,7 @@ public class BServices
 
         book.Id = book.Id;
         book.Name = dto.Name;
-       
+
         book.Count = dto.Count;
         book.Publication = dto.YearPublication;
 
@@ -92,12 +107,11 @@ public class BServices
 
     public List<GetBooksDto> GetAllBooks(GetBooksDto dto)
     {
-        var book = _context.Book.Select(_ => new GetBooksDto()
+        var book = _context.Book!.Select(_ => new GetBooksDto()
         {
             Name = _.Name,
             Count = _.Count,
             YearPublication = _.Publication
-
         }).ToList();
         return book;
     }
@@ -105,23 +119,21 @@ public class BServices
     public List<GetBooksDto> GetSearchBook(
         GetBookFilterDto getBookFilterDto)
     {
-        var books = _context.Book.Select(_ => new GetBooksDto()
+        var books = _context.Book!.Select(_ => new GetBooksDto()
         {
             Name = _.Name,
             YearPublication = _.Publication,
             Count = _.Count
-
         }).ToList();
 
 
-       var findBook= books.Where(_ => _.Name.Contains(getBookFilterDto.Name)).ToList();
-       if (findBook is null)
-       {
-           throw new Exception("not found");
-       }
+        var findBook = books
+            .Where(_ => _.Name!.Contains(getBookFilterDto.Name)).ToList();
+        if (findBook is null)
+        {
+            throw new Exception("not found");
+        }
 
-       return findBook;
-
+        return findBook;
     }
-    
 }

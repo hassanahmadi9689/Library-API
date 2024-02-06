@@ -13,4 +13,10 @@ public class UserController : ControllerBase
     {
         _uServices.AddUser(dto);
     }
+
+    [HttpDelete("Delete-user/{Id}")]
+    public void DeleteUser([FromRoute] int Id)
+    {
+        _uServices.DeleteUser(Id);
+    }
 }

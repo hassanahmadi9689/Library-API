@@ -12,4 +12,9 @@ public class GenreController : ControllerBase
     {
         _gServices.AddGenre(dto);
     }
+    [HttpDelete("Delete-Genre/{Id}")]
+    public void DeleteUser([FromRoute] int Id)
+    {
+        _gServices.DeleteGenre(Id);
+    }
 }
