@@ -126,7 +126,7 @@ public class BServices
         }).ToList();
         
         var findBook = books
-            .Where(_ => _.Name!.Contains(getBookFilterDto.Name)).ToList();
+            .Where(_ => _.Name!.Contains(getBookFilterDto.Name!)).ToList();
         if (findBook is null)
         {
             throw new Exception("not found");

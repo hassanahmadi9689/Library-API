@@ -26,12 +26,13 @@ public class RentBookController : ControllerBase
     [HttpGet("get-all-rent-books")]
     public List<GetAllRentBookDto> GetRentBooks([FromQuery] GetAllRentBookDto dto)
     {
-        return _rServices.RentBooks(dto);
+        return _rServices.GetAllRentBook(dto);
     }
-    [HttpGet("get-by-search-user-Name")]
-    public List<GetAllRentBookDto> GetBook([FromQuery] GetFilterRentBookDto getBookFilterDto)
+    
+    [HttpGet("get--rent-book-search-username")]
+    public List<GetAllRentBookDto> GetRentBooks([FromQuery] GetRentBookFilterDto dto)
     {
-        return _rServices.GetBySearchUser(getBookFilterDto);
+        return _rServices.GetRentBookFilter(dto);
     }
     
 }

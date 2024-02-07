@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebApplication20.Entities;
 using WebApplication20.Services.RentBookServices.Dto;
 
@@ -64,40 +65,43 @@ public class RServices
         _dataContext.SaveChanges();
     }
 
-    public List<GetAllRentBookDto> RentBooks(GetAllRentBookDto dto)
+    public List<GetAllRentBookDto> GetAllRentBook(
+        GetAllRentBookDto getBookFilterDto)
     {
-        var rentBook = _dataContext.RentBook!.Select(_ =>
-            new GetAllRentBookDto()
-            {
-                BookId = _.BookId,
-                UserId = _.UserId
-            }).ToList();
-        if (rentBook is null)
-        {
-            throw new Exception("list is empty ...");
-        }
-
-        return rentBook;
+        var rentBooks = _dataContext.RentBook!
+            .Include(u => u.User)
+            .Include(b => b.Book)
+            .Select(_ =>
+                new GetAllRentBookDto()
+                {
+                    UserName = _.User!.Name,
+                    BookName = _.Book!.Name
+                }).ToList();
+        return rentBooks;
     }
 
-    public List<GetAllRentBookDto> GetBySearchUser(
-        GetFilterRentBookDto getBookFilterDto)
+    public List<GetAllRentBookDto> GetRentBookFilter(
+        GetRentBookFilterDto dto)
     {
-        var rentBooks = _dataContext.RentBook!.Select(_ =>
-            new GetAllRentBookDto()
-            {
-                UserId = _.UserId,
-                BookId = _.BookId
-            }).ToList();
-        var user =
-            _dataContext.User!.SingleOrDefault(_ =>
-                _.Name == getBookFilterDto.Name);
-        if (user is null)
+        var rentBooks = _dataContext.RentBook!
+            .Include(u => u.User)
+            .Include(b => b.Book)
+            .Select(_ =>
+                new GetAllRentBookDto()
+                {
+                    UserName = _.User!.Name,
+                    BookName = _.Book!.Name
+                }).ToList();
+
+
+        var books = rentBooks
+            .Where(_ => _.UserName==dto.UserName)
+            .ToList();
+        if (books is null)
         {
-            throw new Exception("user not found");
+            throw new Exception("Book not found");
         }
 
-        var rentBook = rentBooks.Where(_ => _.UserId == user.Id).ToList();
-        return rentBook;
+        return books;
     }
 }
