@@ -13,14 +13,14 @@ public class BServices
             _context.Author!.FirstOrDefault(_ => _.Id == dto.AuthorId);
         if (authorId is null)
         {
-            throw new Exception("author not found...");
+            dto.AuthorId = null;
         }
 
         var genreId =
             _context.Genre!.FirstOrDefault(_ => _.Id == dto.GenreId);
         if (genreId is null)
         {
-            throw new Exception("genre not found...");
+            dto.GenreId = null;
         }
 
         var book = new Book
@@ -31,7 +31,7 @@ public class BServices
             Count = dto.Count,
             Publication = dto.YearPublication
         };
-        _context.Book.Add(book);
+        _context.Book!.Add(book);
         _context.SaveChanges();
     }
 
@@ -43,14 +43,14 @@ public class BServices
             throw new Exception("Book Not Found");
         }
 
-        var Author =
+        var author =
             _context.Author!.FirstOrDefault(_ => _.Id == dto.AuthorId);
-        if (Author is null)
+        if (author is null)
         {
             throw new Exception("Author not found ");
         }
 
-        book.AuthorId = Author.Id;
+        book.AuthorId = author.Id;
         _context.Book!.Update(book);
         _context.SaveChanges();
     }
@@ -97,7 +97,6 @@ public class BServices
 
         book.Id = book.Id;
         book.Name = dto.Name;
-
         book.Count = dto.Count;
         book.Publication = dto.YearPublication;
 
@@ -125,8 +124,7 @@ public class BServices
             YearPublication = _.Publication,
             Count = _.Count
         }).ToList();
-
-
+        
         var findBook = books
             .Where(_ => _.Name!.Contains(getBookFilterDto.Name)).ToList();
         if (findBook is null)

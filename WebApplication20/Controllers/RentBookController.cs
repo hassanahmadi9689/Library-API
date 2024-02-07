@@ -23,4 +23,15 @@ public class RentBookController : ControllerBase
         _rServices.ReturnBook(dto);
         return dto.BookId;
     }
+    [HttpGet("get-all-rent-books")]
+    public List<GetAllRentBookDto> GetRentBooks([FromQuery] GetAllRentBookDto dto)
+    {
+        return _rServices.RentBooks(dto);
+    }
+    [HttpGet("get-by-search-user-Name")]
+    public List<GetAllRentBookDto> GetBook([FromQuery] GetFilterRentBookDto getBookFilterDto)
+    {
+        return _rServices.GetBySearchUser(getBookFilterDto);
+    }
+    
 }

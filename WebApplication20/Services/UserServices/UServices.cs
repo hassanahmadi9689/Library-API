@@ -28,4 +28,17 @@ public class UServices
         _dataContext.User!.Remove(user);
         _dataContext.SaveChanges();
     }
+    public void UpdateBook(int id, UpdateUserDto dto)
+    {
+        var user = _dataContext.User!.FirstOrDefault(_ => _.Id == id);
+        if (user is null)
+        {
+            throw new Exception("Book Not Found ");
+        }
+
+        user.Id = user.Id;
+        user.Name = dto.Name;
+        
+        _dataContext.SaveChanges();
+    }
 }

@@ -19,4 +19,11 @@ public class UserController : ControllerBase
     {
         _uServices.DeleteUser(Id);
     }
+    
+    [HttpPatch("Update-User{id}")]
+    public void UpdateUser([FromRoute] int id,
+        [FromBody] UpdateUserDto dto)
+    {
+        _uServices.UpdateBook(id,dto);
+    }
 }

@@ -6,5 +6,4 @@ public class UpdateBookDto
     public string? YearPublication { get; set; }
     public int Count { get; set; }
     
-  
 }

@@ -6,6 +6,6 @@ public class AddBookDto
     public string? YearPublication { get; set; }
     public int Count { get; set; }
     
-    public int AuthorId { get; set; }
-    public int GenreId { get; set; }
+    public int? AuthorId { get; set; }
+    public int? GenreId { get; set; }
 }

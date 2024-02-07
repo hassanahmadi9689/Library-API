@@ -38,6 +38,10 @@ public class _202402021315_IntionalTables : Migration
 
     public override void Down()
     {
-        
+        Delete.Table("User");
+        Delete.Table("RentBook");
+        Delete.Table("Book");
+        Delete.Table("Genre");
+        Delete.Table("Author");
     }
 }

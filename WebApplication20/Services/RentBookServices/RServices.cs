@@ -25,13 +25,14 @@ public class RServices
         }
 
         var count =
-            _dataContext.RentBook!.Count(_ => _.UserId == dto.UserId  && _.IsBack == false);
+            _dataContext.RentBook!.Count(_ =>
+                _.UserId == dto.UserId && _.IsBack == false);
         if (count == 4)
         {
             throw new Exception("user cant rent book moore than 4 times");
         }
 
-        if (book.Count==0)
+        if (book.Count == 0)
         {
             throw new Exception("book not available...");
         }
@@ -41,7 +42,6 @@ public class RServices
             IsBack = false,
             BookId = dto.BookId,
             UserId = dto.UserId
-            
         };
         _dataContext.RentBook!.Add(rentBook);
         book.Count--;
@@ -50,7 +50,6 @@ public class RServices
 
     public void ReturnBook(ReturnBookDto dto)
     {
-
         var rentBook = _dataContext.RentBook!.FirstOrDefault(_ =>
             _.UserId == dto.UserId && _.BookId == dto.BookId);
         if (rentBook is null)
@@ -63,6 +62,42 @@ public class RServices
             _dataContext.Book!.FirstOrDefault(_ => _.Id == dto.BookId);
         book!.Count++;
         _dataContext.SaveChanges();
+    }
 
+    public List<GetAllRentBookDto> RentBooks(GetAllRentBookDto dto)
+    {
+        var rentBook = _dataContext.RentBook!.Select(_ =>
+            new GetAllRentBookDto()
+            {
+                BookId = _.BookId,
+                UserId = _.UserId
+            }).ToList();
+        if (rentBook is null)
+        {
+            throw new Exception("list is empty ...");
+        }
+
+        return rentBook;
+    }
+
+    public List<GetAllRentBookDto> GetBySearchUser(
+        GetFilterRentBookDto getBookFilterDto)
+    {
+        var rentBooks = _dataContext.RentBook!.Select(_ =>
+            new GetAllRentBookDto()
+            {
+                UserId = _.UserId,
+                BookId = _.BookId
+            }).ToList();
+        var user =
+            _dataContext.User!.SingleOrDefault(_ =>
+                _.Name == getBookFilterDto.Name);
+        if (user is null)
+        {
+            throw new Exception("user not found");
+        }
+
+        var rentBook = rentBooks.Where(_ => _.UserId == user.Id).ToList();
+        return rentBook;
     }
 }
